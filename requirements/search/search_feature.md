@@ -6,4 +6,4 @@ As a user, i want to search pokemon by name and see results.
 [When] request query for pokemon name
 [Then] system should returns pokemons in search screen
 
-[Scnenario] Don't find any matching result
+[Scenario] Don't find any matching result
