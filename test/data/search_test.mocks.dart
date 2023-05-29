@@ -30,6 +30,7 @@ class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
   _i3.Future<void> request({
     String? url,
     String? method,
+    String? pathParam,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -38,6 +39,7 @@ class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
           {
             #url: url,
             #method: method,
+            #pathParam: pathParam,
           },
         ),
         returnValue: _i3.Future<void>.value(),
