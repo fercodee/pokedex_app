@@ -11,7 +11,7 @@ class SearchUseCase {
 
   SearchUseCase({required this.httpClient, required this.url});
 
-  Future<PokemonEntity> findByName({required String name}) async {
+  Future<PokemonEntity> findByName(String name) async {
     try {
       final response =
           await httpClient.request(url: url, method: 'get', pathParam: name);

@@ -37,7 +37,10 @@ void main() {
       };
 
   test('Should call HttpClient with correct values', () async {
-    await sut.findByName(name: name);
+    when(httpClient.request(url: url, method: 'get', pathParam: name))
+        .thenAnswer((_) async => mockValidData());
+
+    await sut.findByName(name);
 
     verify(httpClient.request(url: url, method: 'get', pathParam: name));
   });
@@ -49,7 +52,7 @@ void main() {
             pathParam: anyNamed('pathParam')))
         .thenThrow(HttpError.badRequest);
 
-    final future = sut.findByName(name: name);
+    final future = sut.findByName(name);
 
     expect(future, throwsA(DomainError.unexpected));
   });
@@ -59,7 +62,7 @@ void main() {
     when(httpClient.request(url: url, method: 'get', pathParam: name))
         .thenAnswer((_) async => mockValidData());
 
-    final pokemon = await sut.findByName(name: name);
+    final pokemon = await sut.findByName(name);
 
     expect(pokemon.name, validData['name']);
   });
