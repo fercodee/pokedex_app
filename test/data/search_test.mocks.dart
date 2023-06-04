@@ -8,8 +8,7 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'search_test.dart' as _i2;
+import 'package:pokedex_app/data/http/http_client.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -27,9 +26,9 @@ import 'search_test.dart' as _i2;
 /// See the documentation for Mockito's code generation for more information.
 class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
   @override
-  _i3.Future<void> request({
-    String? url,
-    String? method,
+  _i3.Future<Map<dynamic, dynamic>> request({
+    required String? url,
+    required String? method,
     String? pathParam,
   }) =>
       (super.noSuchMethod(
@@ -42,7 +41,9 @@ class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
             #pathParam: pathParam,
           },
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue:
+            _i3.Future<Map<dynamic, dynamic>>.value(<dynamic, dynamic>{}),
+        returnValueForMissingStub:
+            _i3.Future<Map<dynamic, dynamic>>.value(<dynamic, dynamic>{}),
+      ) as _i3.Future<Map<dynamic, dynamic>>);
 }
