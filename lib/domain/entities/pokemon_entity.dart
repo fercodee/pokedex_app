@@ -1,7 +1,7 @@
 class PokemonEntity {
-  final String name;
-  final String number;
-  final String image;
+  String name;
+  int id;
+  Map<String, String> sprites;
 
-  PokemonEntity(this.name, this.number, this.image);
+  PokemonEntity({required this.name, required this.id, required this.sprites});
 }
