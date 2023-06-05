@@ -5,7 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:pokedex_app/data/http/http.dart';
 import 'package:pokedex_app/data/http/http_client.dart';
 import 'package:pokedex_app/data/usecases/search.dart';
-import 'package:pokedex_app/domain/helpers/domain_error.dart';
+import 'package:pokedex_app/domain/helpers/helpers.dart';
 
 import 'search_test.mocks.dart';
 
@@ -64,10 +64,19 @@ void main() {
     expect(future, throwsA(DomainError.unexpected));
   });
 
-  test('should return an Pokemon if HttpClient returns 200', () async {
+  test('Should return an Pokemon if HttpClient returns 200', () async {
     final validData = mockValidData();
     final pokemon = await sut.findByName(name);
 
     expect(pokemon.name, validData['name']);
+  });
+
+  test(
+      'Should throw UnexpectedError if HttpClient returns 200 with invalid data',
+      () async {
+    mockHttpData({"invalid_key": "invalid_value"});
+    final future = sut.findByName(name);
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 }
