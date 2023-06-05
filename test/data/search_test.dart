@@ -17,14 +17,6 @@ void main() {
   late SearchUseCase sut;
   late int id;
 
-  setUp(() {
-    name = faker.person.name();
-    id = faker.randomGenerator.integer(2);
-    url = faker.internet.httpUrl();
-    httpClient = MockHttpClient();
-    sut = SearchUseCase(httpClient: httpClient, url: url);
-  });
-
   Map mockValidData() => {
         "name": name,
         "sprites": {
@@ -36,21 +28,36 @@ void main() {
         "id": id
       };
 
-  test('Should call HttpClient with correct values', () async {
-    when(httpClient.request(url: url, method: 'get', pathParam: name))
-        .thenAnswer((_) async => mockValidData());
+  PostExpectation mockRequest() => when(httpClient.request(
+      method: anyNamed('method'),
+      url: anyNamed('url'),
+      pathParam: anyNamed('pathParam')));
 
+  void mockHttpData(Map data) {
+    mockRequest().thenAnswer((_) async => data);
+  }
+
+  void mockHttpError(HttpError error) {
+    mockRequest().thenThrow(error);
+  }
+
+  setUp(() {
+    name = faker.person.name();
+    id = faker.randomGenerator.integer(2);
+    url = faker.internet.httpUrl();
+    httpClient = MockHttpClient();
+    sut = SearchUseCase(httpClient: httpClient, url: url);
+    mockHttpData(mockValidData());
+  });
+
+  test('Should call HttpClient with correct values', () async {
     await sut.findByName(name);
 
     verify(httpClient.request(url: url, method: 'get', pathParam: name));
   });
 
   test('Should throw UnexpectedError if HttpClient returns 400', () async {
-    when(httpClient.request(
-            method: anyNamed('method'),
-            url: anyNamed('url'),
-            pathParam: anyNamed('pathParam')))
-        .thenThrow(HttpError.badRequest);
+    mockHttpError(HttpError.badRequest);
 
     final future = sut.findByName(name);
 
@@ -59,9 +66,6 @@ void main() {
 
   test('should return an Pokemon if HttpClient returns 200', () async {
     final validData = mockValidData();
-    when(httpClient.request(url: url, method: 'get', pathParam: name))
-        .thenAnswer((_) async => mockValidData());
-
     final pokemon = await sut.findByName(name);
 
     expect(pokemon.name, validData['name']);
