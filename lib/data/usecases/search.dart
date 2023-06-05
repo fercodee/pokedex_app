@@ -16,8 +16,10 @@ class SearchUseCase {
       final response =
           await httpClient.request(url: url, method: 'get', pathParam: name);
       return PokemonModel.fromJson(response).toEntity();
-    } on HttpError {
-      throw DomainError.unexpected;
+    } on HttpError catch (error) {
+      throw error == HttpError.unauthorized
+          ? DomainError.invalidCredentials
+          : DomainError.unexpected;
     }
   }
 }
