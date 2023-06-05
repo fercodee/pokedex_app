@@ -17,5 +17,8 @@
 ## Exception - Invalid response
 1. ✅ System returns message of unexpected error
 
+## Exception - Invalid response
+1. ✅ System returns message of unexpected error
+
 ## Exception - Server error
 1. ✅ System returns message of unexpected error
