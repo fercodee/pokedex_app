@@ -64,6 +64,30 @@ void main() {
     expect(future, throwsA(DomainError.unexpected));
   });
 
+  test('Should throw InvalidCredentials if HttpClient returns 401', () async {
+    mockHttpError(HttpError.unauthorized);
+
+    final future = sut.findByName(name);
+
+    expect(future, throwsA(DomainError.invalidCredentials));
+  });
+
+  test('Should throw UnexpectedError if HttpClient returns 404', () async {
+    mockHttpError(HttpError.notFound);
+
+    final future = sut.findByName(name);
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
+
+  test('Should throw UnexpectedError if HttpClient returns 500', () async {
+    mockHttpError(HttpError.serverError);
+
+    final future = sut.findByName(name);
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
+
   test('Should return an Pokemon if HttpClient returns 200', () async {
     final validData = mockValidData();
     final pokemon = await sut.findByName(name);
