@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pokedex_app/data/http/http.dart';
 import 'package:pokedex_app/data/http/http_client.dart';
-import 'package:pokedex_app/data/usecases/search.dart';
+import 'package:pokedex_app/data/usecases/find_pokemon.dart';
 import 'package:pokedex_app/domain/helpers/helpers.dart';
 
 import 'search_test.mocks.dart';
@@ -14,7 +14,7 @@ void main() {
   late String name;
   late String url;
   late MockHttpClient httpClient;
-  late SearchUseCase sut;
+  late FindPokemonByNameUseCase sut;
   late int id;
 
   Map mockValidData() => {
@@ -46,7 +46,7 @@ void main() {
     id = faker.randomGenerator.integer(2);
     url = faker.internet.httpUrl();
     httpClient = MockHttpClient();
-    sut = SearchUseCase(httpClient: httpClient, url: url);
+    sut = FindPokemonByNameUseCase(httpClient: httpClient, url: url);
     mockHttpData(mockValidData());
   });
 
