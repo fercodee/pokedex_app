@@ -32,7 +32,6 @@ class HttpAdapter implements HttpClient {
   }
 }
 
-// ! REMEMBER, YOU ARE TESTING INFRA LAYER
 void main() {
   late HttpAdapter sut;
   late MockClient client;
