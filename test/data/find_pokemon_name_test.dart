@@ -7,7 +7,7 @@ import 'package:pokedex_app/data/http/http_client.dart';
 import 'package:pokedex_app/data/usecases/find_pokemon.dart';
 import 'package:pokedex_app/domain/helpers/helpers.dart';
 
-import 'search_test.mocks.dart';
+import 'find_pokemon_name_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<HttpClient>()])
 void main() {
