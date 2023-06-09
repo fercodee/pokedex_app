@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:pokedex_app/data/http/http.dart';
 import 'package:pokedex_app/data/http/http_client.dart';
 
 @GenerateNiceMocks([MockSpec<Client>()])
@@ -19,7 +20,7 @@ class HttpAdapter implements HttpClient {
   Future<Map> request(
       {required String url, required String method, String? pathParam}) async {
     final uri = Uri.https('example.com', url);
-    Response response = Response('{}', 500);
+    Response response = Response('', 500);
 
     if (method == 'get') {
       response = await client.get(uri, headers: {
@@ -28,7 +29,19 @@ class HttpAdapter implements HttpClient {
       });
     }
 
-    return jsonDecode(response.body);
+    return _handleResponse(response);
+  }
+
+  Map _handleResponse(Response response) {
+    if (response.statusCode == 200) {
+      return response.body.isEmpty
+          ? jsonDecode('{}')
+          : jsonDecode(response.body);
+    } else if (response.statusCode == 204) {
+      return jsonDecode('{}');
+    } else {
+      throw HttpError.serverError;
+    }
   }
 }
 
@@ -71,6 +84,33 @@ void main() {
           await sut.request(url: url, method: 'get', pathParam: pokemonName);
 
       expect(response, {'any_key': 'any_value'});
+    });
+
+    test('Should return empty MAP if GET returns 200 with no data', () async {
+      mockResponse(200, body: '');
+
+      final response =
+          await sut.request(url: url, method: 'get', pathParam: pokemonName);
+
+      expect(response, {});
+    });
+
+    test('Should return empty MAP if GET returns 204', () async {
+      mockResponse(204, body: '');
+
+      final response =
+          await sut.request(url: url, method: 'get', pathParam: pokemonName);
+
+      expect(response, {});
+    });
+
+    test('Should return empty MAP if GET returns 204 with data', () async {
+      mockResponse(204);
+
+      final response =
+          await sut.request(url: url, method: 'get', pathParam: pokemonName);
+
+      expect(response, {});
     });
   });
 }
