@@ -41,20 +41,18 @@ void main() {
   Map mockValidData() => {
         "name": pokemonName,
         "sprites": {
-          "back_default":
-              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png",
-          "back_female":
-              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/female/25.png",
+          "back_default": "back_default_value",
+          "back_female": "back_female_default",
         },
         "id": 25
       };
 
-  void mockResponse(PostExpectation request,
-          {String body = "{any_key: any_value}"}) =>
-      request.thenAnswer((_) async => Response(body, 200));
-
   PostExpectation mockResquest() => when(
       client.get(Uri.https('example.com', url), headers: anyNamed('headers')));
+
+  void mockResponse(int statusCode,
+          {String body = '{"any_key": "any_value"}'}) =>
+      mockResquest().thenAnswer((_) async => Response(body, statusCode));
 
   setUp(() {
     client = MockClient();
@@ -65,8 +63,7 @@ void main() {
 
   group('get', () {
     setUp(() async {
-      final data = mockValidData();
-      mockResponse(mockResquest(), body: jsonEncode(data));
+      mockResponse(200);
     });
 
     test('Should call get with correct values', () async {
@@ -78,6 +75,11 @@ void main() {
       }));
     });
 
-    test('Should return data if GET returns 200', () async {});
+    test('Should return data if GET returns 200', () async {
+      final response =
+          await sut.request(url: url, method: 'get', pathParam: pokemonName);
+
+      expect(response, {'any_key': 'any_value'});
+    });
   });
 }
