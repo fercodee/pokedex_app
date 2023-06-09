@@ -38,15 +38,6 @@ void main() {
   late String url;
   late String pokemonName;
 
-  Map mockValidData() => {
-        "name": pokemonName,
-        "sprites": {
-          "back_default": "back_default_value",
-          "back_female": "back_female_default",
-        },
-        "id": 25
-      };
-
   PostExpectation mockResquest() => when(
       client.get(Uri.https('example.com', url), headers: anyNamed('headers')));
 
