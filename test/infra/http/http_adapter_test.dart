@@ -41,6 +41,8 @@ class HttpAdapter implements HttpClient {
       return jsonDecode('{}');
     } else if (response.statusCode == 400) {
       throw HttpError.badRequest;
+    } else if (response.statusCode == 401) {
+      throw HttpError.unauthorized;
     } else {
       throw HttpError.serverError;
     }
@@ -111,6 +113,12 @@ void main() {
       mockResponse(400);
       final response = sut.request(url: url, method: 'get');
       expect(response, throwsA(HttpError.badRequest));
+    });
+
+    test('Should return BadRequestError if Get returns 401', () async {
+      mockResponse(401);
+      final response = sut.request(url: url, method: 'get');
+      expect(response, throwsA(HttpError.unauthorized));
     });
   });
 }
