@@ -22,11 +22,15 @@ class HttpAdapter implements HttpClient {
     final uri = Uri.https('example.com', url);
     Response response = Response('', 500);
 
-    if (method == 'get') {
-      response = await client.get(uri, headers: {
-        'content-type': 'application/json',
-        'accept': 'application/json'
-      });
+    try {
+      if (method == 'get') {
+        response = await client.get(uri, headers: {
+          'content-type': 'application/json',
+          'accept': 'application/json'
+        });
+      }
+    } catch (e) {
+      throw HttpError.serverError;
     }
 
     return _handleResponse(response);
