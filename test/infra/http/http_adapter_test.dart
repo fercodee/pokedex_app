@@ -43,6 +43,8 @@ class HttpAdapter implements HttpClient {
       throw HttpError.badRequest;
     } else if (response.statusCode == 401) {
       throw HttpError.unauthorized;
+    } else if (response.statusCode == 403) {
+      throw HttpError.forbidden;
     } else {
       throw HttpError.serverError;
     }
@@ -119,6 +121,12 @@ void main() {
       mockResponse(401);
       final response = sut.request(url: url, method: 'get');
       expect(response, throwsA(HttpError.unauthorized));
+    });
+
+    test('Should return ForbiddenError if GET returns 403', () async {
+      mockResponse(403);
+      final future = sut.request(url: url, method: 'get');
+      expect(future, throwsA(HttpError.forbidden));
     });
 
     test('Should return ServerError if GET returns 500', () async {
