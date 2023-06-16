@@ -9,9 +9,15 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 0,
+        leadingWidth: 48,
         title: const Text(
           'Pokedéx',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        leading: const Icon(
+          IconData(0xe147, fontFamily: 'MaterialIcons'),
+          color: Colors.white,
         ),
         backgroundColor: background,
         bottom: const PreferredSize(
