@@ -20,24 +20,43 @@ class HomePage extends StatelessWidget {
           color: Colors.white,
         ),
         backgroundColor: background,
-        bottom: const PreferredSize(
-          preferredSize: Size(double.infinity, 40),
+        bottom: PreferredSize(
+          preferredSize: const Size(double.infinity, 40),
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 15.0,
             ),
-            child: SizedBox(
-              height: 50,
-              child: TextField(
-                textAlign: TextAlign.start,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    contentPadding: EdgeInsets.fromLTRB(12, 0, 0, 0),
-                    hintText: 'Search',
-                    filled: true,
-                    fillColor: Colors.white),
-              ),
+            child: Row(
+              children: [
+                Flexible(
+                  child: TextField(
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          const IconData(0xe567, fontFamily: 'MaterialIcons'),
+                          color: Theme.of(context).primaryColorLight,
+                        ),
+                        border: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(30))),
+                        contentPadding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+                        hintText: 'Search',
+                        filled: true,
+                        fillColor: Colors.white),
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {},
+                    color: Colors.white,
+                    style: ButtonStyle(backgroundColor:
+                        MaterialStateProperty.resolveWith((states) {
+                      return Colors.white;
+                    })),
+                    icon: Icon(
+                      const IconData(0xf0216, fontFamily: 'MaterialIcons'),
+                      color: background,
+                    ))
+              ],
             ),
           ),
         ),
