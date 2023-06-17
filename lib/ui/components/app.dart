@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_app/ui/pages/home/home_page.dart';
+import 'package:pokedex_app/ui/pages/pages.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
