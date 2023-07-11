@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/ui/pages/home/components/components.dart';
+import 'package:provider/provider.dart';
 
 import 'home_page_presenter.dart';
 
@@ -38,8 +39,10 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Row(
               children: [
-                const Flexible(
-                  child: TextFieldSearch(),
+                Flexible(
+                  child: Provider(
+                      create: (_) => widget.presenter,
+                      child: const TextFieldSearch()),
                 ),
                 IconButton(
                     onPressed: () {},

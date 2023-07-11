@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_app/ui/pages/home/home_page_presenter.dart';
+import 'package:provider/provider.dart';
 
 class TextFieldSearch extends StatelessWidget {
   const TextFieldSearch({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final presenter = Provider.of<HomePresenter>(context);
     return TextField(
       textAlign: TextAlign.start,
       decoration: InputDecoration(
@@ -18,6 +21,7 @@ class TextFieldSearch extends StatelessWidget {
           hintText: 'Search',
           filled: true,
           fillColor: Colors.white),
+      onChanged: presenter.findPokemonByName,
     );
   }
 }
