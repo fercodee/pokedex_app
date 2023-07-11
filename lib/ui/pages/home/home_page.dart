@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+import 'home_page_presenter.dart';
 
+class HomePage extends StatefulWidget {
+  final HomePresenter presenter;
+
+  const HomePage({super.key, required this.presenter});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final background = Theme.of(context).primaryColor;
@@ -62,23 +71,20 @@ class HomePage extends StatelessWidget {
         ),
       ),
       backgroundColor: background,
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Container(
-                margin: const EdgeInsets.only(top: 18),
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.white),
-                width: double.infinity,
-                height: 620.0,
-              ),
-            ),
-          );
-        },
-      ),
+      body: Builder(builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Container(
+            margin: const EdgeInsets.only(top: 18),
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white),
+            width: double.infinity,
+            height: 620.0,
+            child: ListView(),
+          ),
+        );
+      }),
     );
   }
 }

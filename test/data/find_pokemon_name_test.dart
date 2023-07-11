@@ -51,7 +51,7 @@ void main() {
   });
 
   test('Should call HttpClient with correct values', () async {
-    await sut.findByName(name);
+    await sut.byName(name);
 
     verify(httpClient.request(url: url, method: 'get', pathParam: name));
   });
@@ -59,7 +59,7 @@ void main() {
   test('Should throw UnexpectedError if HttpClient returns 400', () async {
     mockHttpError(HttpError.badRequest);
 
-    final future = sut.findByName(name);
+    final future = sut.byName(name);
 
     expect(future, throwsA(DomainError.unexpected));
   });
@@ -67,7 +67,7 @@ void main() {
   test('Should throw InvalidCredentials if HttpClient returns 401', () async {
     mockHttpError(HttpError.unauthorized);
 
-    final future = sut.findByName(name);
+    final future = sut.byName(name);
 
     expect(future, throwsA(DomainError.invalidCredentials));
   });
@@ -75,7 +75,7 @@ void main() {
   test('Should throw UnexpectedError if HttpClient returns 404', () async {
     mockHttpError(HttpError.notFound);
 
-    final future = sut.findByName(name);
+    final future = sut.byName(name);
 
     expect(future, throwsA(DomainError.unexpected));
   });
@@ -83,14 +83,14 @@ void main() {
   test('Should throw UnexpectedError if HttpClient returns 500', () async {
     mockHttpError(HttpError.serverError);
 
-    final future = sut.findByName(name);
+    final future = sut.byName(name);
 
     expect(future, throwsA(DomainError.unexpected));
   });
 
   test('Should return an Pokemon if HttpClient returns 200', () async {
     final validData = mockValidData();
-    final pokemon = await sut.findByName(name);
+    final pokemon = await sut.byName(name);
 
     expect(pokemon.name, validData['name']);
   });
@@ -99,7 +99,7 @@ void main() {
       'Should throw UnexpectedError if HttpClient returns 200 with invalid data',
       () async {
     mockHttpData({"invalid_key": "invalid_value"});
-    final future = sut.findByName(name);
+    final future = sut.byName(name);
 
     expect(future, throwsA(DomainError.unexpected));
   });

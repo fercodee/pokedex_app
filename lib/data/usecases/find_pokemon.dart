@@ -6,14 +6,14 @@ import 'package:pokedex_app/domain/usecases/usecases.dart';
 import '../../domain/helpers/helpers.dart';
 import '../http/http_client.dart';
 
-class FindPokemonByNameUseCase implements FindPokemonByName {
+class FindPokemonByNameUseCase implements FindPokemon {
   final HttpClient httpClient;
   final String url;
 
   FindPokemonByNameUseCase({required this.httpClient, required this.url});
 
   @override
-  Future<PokemonEntity> findByName(String name) async {
+  Future<PokemonEntity> byName(String name) async {
     try {
       final response =
           await httpClient.request(url: url, method: 'get', pathParam: name);
