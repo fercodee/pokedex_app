@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_app/main/factories/pages/home/home_page_factory.dart';
 import 'package:pokedex_app/ui/components/components.dart';
+
+void main() {
+  runApp(App());
+}
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -10,7 +15,7 @@ class App extends StatelessWidget {
       title: 'Pokédex',
       debugShowCheckedModeBanner: false,
       theme: makeAppTheme(),
-      home: const HomePage(),
+      home: makeHomePage(),
     );
   }
 }
