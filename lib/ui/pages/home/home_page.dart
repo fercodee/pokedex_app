@@ -62,8 +62,6 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: background,
       body: Builder(builder: (context) {
-        // ! You should implement StreamBuilder
-
         return StreamBuilder<bool>(
             stream: widget.presenter.isLoadingStream,
             builder: (context, snapshot) {

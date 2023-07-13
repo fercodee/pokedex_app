@@ -4,7 +4,6 @@ import 'package:pokedex_app/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_app/domain/usecases/usecases.dart';
 
 import '../../domain/helpers/helpers.dart';
-import '../http/http_client.dart';
 
 class FindPokemonByNameUseCase implements FindPokemon {
   final HttpClient httpClient;

@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pokedex_app/data/http/http.dart';
-import 'package:pokedex_app/data/http/http_client.dart';
 import 'package:pokedex_app/data/usecases/find_pokemon.dart';
 import 'package:pokedex_app/domain/helpers/helpers.dart';
 
