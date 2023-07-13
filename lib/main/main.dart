@@ -3,7 +3,7 @@ import 'package:pokedex_app/main/factories/pages/home/home_page_factory.dart';
 import 'package:pokedex_app/ui/components/components.dart';
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
