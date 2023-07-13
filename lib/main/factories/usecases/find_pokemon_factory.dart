@@ -4,6 +4,5 @@ import 'package:pokedex_app/main/factories/http/http_client_factory.dart';
 
 FindPokemon makeFindPokemon() {
   return FindPokemonByNameUseCase(
-      httpClient: makeHttpAdapter(),
-      url: 'https://pokeapi.co/api/v2/pokemon/pikachu');
+      httpClient: makeHttpAdapter(), url: 'https://pokeapi.co/api/v2/pokemon/');
 }
