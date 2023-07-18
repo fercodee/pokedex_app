@@ -19,7 +19,10 @@ class StreamHomePresenter implements HomePresenter {
   Stream<bool> get isLoadingStream =>
       _controller.stream.map((state) => state.isLoading).distinct();
 
-  StreamHomePresenter({required this.findPokemon});
+  StreamHomePresenter({required this.findPokemon}) {
+    _state.isLoading = true;
+    _controller.add(_state);
+  }
 
   @override
   Future<PokemonEntity> findPokemonByName(String name) async {

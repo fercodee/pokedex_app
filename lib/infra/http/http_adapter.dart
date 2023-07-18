@@ -9,10 +9,11 @@ class HttpAdapter implements HttpClient {
 
   HttpAdapter(this.client);
 
+  // TODO: Refactor url and params capture
   @override
   Future<Map> request(
       {required String url, required String method, String? pathParam}) async {
-    final uri = Uri.https('example.com', url);
+    final uri = Uri.https(url, '/api/v2/pokemon/$pathParam');
     Response response = Response('', 500);
 
     try {
@@ -25,8 +26,9 @@ class HttpAdapter implements HttpClient {
     } catch (e) {
       throw HttpError.serverError;
     }
-
-    return _handleResponse(response);
+    final result = _handleResponse(response);
+    print(result);
+    return result;
   }
 
   Map _handleResponse(Response response) {

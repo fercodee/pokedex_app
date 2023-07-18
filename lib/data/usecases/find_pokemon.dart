@@ -5,11 +5,11 @@ import 'package:pokedex_app/domain/usecases/usecases.dart';
 
 import '../../domain/helpers/helpers.dart';
 
-class FindPokemonByNameUseCase implements FindPokemon {
+class FindPokemonUseCase implements FindPokemon {
   final HttpClient httpClient;
   final String url;
 
-  FindPokemonByNameUseCase({required this.httpClient, required this.url});
+  FindPokemonUseCase({required this.httpClient, required this.url});
 
   @override
   Future<PokemonEntity> byName(String name) async {

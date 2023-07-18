@@ -3,7 +3,7 @@ import 'package:pokedex_app/domain/entities/pokemon_entity.dart';
 
 class PokemonModel {
   String name;
-  Map<String, String> sprites;
+  Map<String, dynamic> sprites;
   int id;
 
   PokemonModel({required this.name, required this.sprites, required this.id});

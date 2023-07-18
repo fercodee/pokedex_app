@@ -13,7 +13,7 @@ void main() {
   late String name;
   late String url;
   late MockHttpClient httpClient;
-  late FindPokemonByNameUseCase sut;
+  late FindPokemonUseCase sut;
   late int id;
 
   Map mockValidData() => {
@@ -45,7 +45,7 @@ void main() {
     id = faker.randomGenerator.integer(2);
     url = faker.internet.httpUrl();
     httpClient = MockHttpClient();
-    sut = FindPokemonByNameUseCase(httpClient: httpClient, url: url);
+    sut = FindPokemonUseCase(httpClient: httpClient, url: url);
     mockHttpData(mockValidData());
   });
 

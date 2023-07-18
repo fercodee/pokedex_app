@@ -21,7 +21,7 @@ class TextFieldSearch extends StatelessWidget {
           hintText: 'Search',
           filled: true,
           fillColor: Colors.white),
-      onChanged: presenter.findPokemonByName,
+      onSubmitted: presenter.findPokemonByName,
     );
   }
 }

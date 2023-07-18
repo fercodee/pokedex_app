@@ -61,26 +61,23 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       backgroundColor: background,
-      body: Builder(builder: (context) {
-        return StreamBuilder<bool>(
-            stream: widget.presenter.isLoadingStream,
-            builder: (context, snapshot) {
-              return snapshot.data!
-                  ? const CircularProgressIndicator()
-                  : Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 18),
-                        decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.white),
-                        width: double.infinity,
-                        height: 620.0,
-                        child: ListView(),
-                      ),
-                    );
-            });
-      }),
+      body: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Container(
+          margin: const EdgeInsets.only(top: 18),
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.white),
+          width: double.infinity,
+          height: 620.0,
+          // TODO: Verify how to implement logic from search and loading.
+          child: StreamBuilder<Object>(
+              stream: null,
+              builder: (context, snapshot) {
+                return ListView();
+              }),
+        ),
+      ),
     );
   }
 }
