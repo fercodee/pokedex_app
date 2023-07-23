@@ -70,11 +70,39 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white),
           width: double.infinity,
           height: 620.0,
-          // TODO: Verify how to implement logic from search and loading.
           child: StreamBuilder<Object>(
               stream: null,
               builder: (context, snapshot) {
-                return ListView();
+                return GridView.count(
+                  crossAxisCount: 3,
+                  children: List.generate(11, (index) {
+                    return Card(
+                      clipBehavior: Clip.hardEdge,
+                      child: InkWell(
+                        splashColor: Colors.blue.withAlpha(30),
+                        onTap: () {
+                          debugPrint('Card tapped');
+                        },
+                        child: SizedBox(
+                          width: 90,
+                          height: 90,
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                child: Center(
+                                  child: Image.network(
+                                    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                );
               }),
         ),
       ),
