@@ -27,7 +27,6 @@ class HttpAdapter implements HttpClient {
       throw HttpError.serverError;
     }
     final result = _handleResponse(response);
-    print(result);
     return result;
   }
 

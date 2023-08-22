@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:pokedex_app/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_app/domain/helpers/domain_error.dart';
 import 'package:pokedex_app/domain/usecases/find_pokemon.dart';
@@ -7,7 +8,7 @@ import 'package:pokedex_app/ui/pages/home/home_page_presenter.dart';
 
 class HomeState {
   late String pokemonName;
-  late List<PokemonEntity> pokemons = [];
+  late List<PokemonEntity> pokemons;
   bool isLoading = false;
 }
 
@@ -30,16 +31,17 @@ class StreamHomePresenter implements HomePresenter {
   // TODO: Refactor method for get pokemon and pass for one stream
   @override
   void findPokemonByName(String name) async {
+    print('========== Pokemons:');
+    _state.pokemons = [];
     _state.isLoading = true;
     _controller.add(_state);
-
     try {
       final query = await findPokemon.byName(name);
       _state.pokemons.add(query);
-      _controller.add(_state);
+      print(_state.pokemons);
+      _controller.sink.add(_state);
     } on DomainError catch (error) {
-      // TODO: Implement error state
-      print(error);
+      debugPrint(error.toString());
     }
   }
 }
