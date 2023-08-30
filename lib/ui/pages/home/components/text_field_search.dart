@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_app/ui/pages/home/home_page_presenter.dart';
+import 'package:pokedex_app/presentation/presenters/presenters.dart';
 import 'package:provider/provider.dart';
 
 class TextFieldSearch extends StatelessWidget {
@@ -7,7 +7,7 @@ class TextFieldSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final presenter = Provider.of<HomePresenter>(context);
+    final presenter = context.read<CubitHomePresenter>();
     return TextField(
       textAlign: TextAlign.start,
       decoration: InputDecoration(

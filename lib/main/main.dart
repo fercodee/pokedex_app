@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_app/main/factories/pages/home/home_page_factory.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex_app/main/factories/pages/home/home_page.dart';
+import 'package:pokedex_app/main/factories/usecases/find_pokemon_factory.dart';
+import 'package:pokedex_app/presentation/presenters/cubit_home_presenters.dart';
 import 'package:pokedex_app/ui/components/components.dart';
 
 void main() {
-  runApp(const App());
+  runApp(App());
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,10 @@ class App extends StatelessWidget {
       title: 'Pokédex',
       debugShowCheckedModeBanner: false,
       theme: makeAppTheme(),
-      home: makeHomePage(),
+      home: BlocProvider(
+        create: (context) => CubitHomePresenter(findPokemonUseCase: makeFindPokemon()),
+        child: makeHomePage(),
+      ) ,
     );
   }
 }
