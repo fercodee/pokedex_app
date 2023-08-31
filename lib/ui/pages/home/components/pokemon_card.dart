@@ -37,7 +37,7 @@ class PokemonCard extends StatelessWidget {
                       SizedBox(
                         height: 60,
                         child: Transform.scale(
-                          scale: 3,
+                          scale: 2,
                           child: Image.network(
                             pokemon.sprites['front_default'],
                           ),

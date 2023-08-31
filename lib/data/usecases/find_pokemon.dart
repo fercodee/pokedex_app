@@ -23,4 +23,37 @@ class FindPokemonUseCase implements FindPokemon {
           : DomainError.unexpected;
     }
   }
+
+  @override
+  Future<List<PokemonEntity>> multiplePokemons(int limit) async {
+    try {
+      // Review HttpClient to pass limit
+      final response = await httpClient.request(url: url, method: 'get');
+
+      final Map<String, String> listOfLinks = response['results'].map((key, value) {
+        return MapEntry(key, value);
+      });
+
+      final List<PokemonEntity> pokemons = [];
+
+      listOfLinks.forEach((key, value) async {
+        final response = await byName(key);
+        pokemons.add(response);
+      });
+
+
+      /*
+      * {
+          "name": "bulbasaur",
+          "url": "https://pokeapi.co/api/v2/pokemon/1/"
+        }
+      * */
+
+      return pokemons;
+    } on HttpError catch (error) {
+      throw error == HttpError.unauthorized
+          ? DomainError.invalidCredentials
+          : DomainError.unexpected;
+    }
+  }
 }
